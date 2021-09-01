@@ -1,0 +1,54 @@
+apply plugin: 'java-library'
+apply plugin: 'war'
+apply plugin: 'com.bmuschko.tomcat'
+apply plugin: 'eclipse-wtp'
+
+
+repositories {
+    jcenter()
+}
+
+buildscript {
+    repositories {
+        jcenter()
+    }
+
+    dependencies {
+        classpath 'com.bmuschko:gradle-tomcat-plugin:2.4.1'
+    }
+}
+
+
+dependencies {
+    
+    	def tomcatVersion = '8.0.46'
+    	def springWebMvcVersion = '5.0.2.RELEASE'
+    
+    	tomcat "org.apache.tomcat.embed:tomcat-embed-core:${tomcatVersion}",
+               "org.apache.tomcat.embed:tomcat-embed-logging-juli:${tomcatVersion}",
+               "org.apache.tomcat.embed:tomcat-embed-jasper:${tomcatVersion}"
+    
+    providedCompile 'javax.servlet:javax.servlet-api:4.0.0'
+	compile 'javax.servlet:jstl:1.2'
+	compile 'javax.servlet.jsp:javax.servlet.jsp-api:2.3.1'
+	compile 'javax.servlet.jsp.jstl:jstl-api:1.2'
+	
+	compile "org.springframework:spring-webmvc:${springWebMvcVersion}"
+	compile "org.springframework:spring-test:${springWebMvcVersion}"
+	
+    compile "mysql:mysql-connector-java:8.0.25"
+    compile "org.hibernate:hibernate-core:6.0.0.Alpha9"
+    compile "org.hibernate:hibernate-c3p0:6.0.0.Alpha9"
+    compile 'org.hibernate:hibernate-validator:7.0.1.Final'
+    compile 'javax.validation:validation-api:2.0.1.Final'
+    compile "org.springframework:spring-tx:5.3.9"
+    compile "org.springframework:spring-orm:5.3.9"
+    compile 'com.fasterxml.jackson.core:jackson-databind:2.13.0-rc1'
+    	testImplementation 'junit:junit:4.12'
+}
+
+tomcat {
+
+	httpPort = 8080
+	contextPath = '/Test'
+}
